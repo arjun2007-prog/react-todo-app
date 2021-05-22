@@ -5,11 +5,20 @@ import {Todo} from "./reactComponents/todo"
 import {Footer} from "./reactComponents/footer"
 import {Addtodo} from "./reactComponents/addTodo"
 
-import { React, useState } from "react";
+import { React, useState, useEffect} from "react";
 
 
 
 function Display() {
+  let initTodo;
+
+  if (localStorage.getItem("todos") === null) {
+    initTodo = []
+  }
+  else{
+    initTodo = JSON.parse(localStorage.getItem("todos"))
+  }
+  console.log(initTodo);
 
    function add(title, desc) {
     // alert("this " + title + " " + desc)
@@ -32,28 +41,14 @@ function Display() {
     setTodo(todoItems.filter((array)=>{
       return array !== clickedTodo
     }))
-    localStorage.setItem("todos", JSON.stringify(todoItems))
-    console.log(JSON.parse(localStorage.getItem("todos")));
+    useEffect(()=>{
+      localStorage.setItem("todos", JSON.stringify(todoItems))
+    },[todoItems])
+    
   }
   //Whatever html we write must be returned on the function call so that the html can be used and display. 
   //Theyfore, it is written inside the return function
-  const [todoItems, setTodo] = useState([
-    // {
-    //   sno:1,
-    //   title:"Go to Market",
-    //   desc:"Buy vegitables and fruits"
-    // },
-    // {
-    //   sno:2,
-    //   title:"Go to Mall",
-    //   desc:"Buy vegitables and fruits"
-    // },
-    // {
-    //   sno:3,
-    //   title:"Go to office",
-    //   desc:"Buy vegitables and fruits"
-    // }
-  ])
+  const [todoItems, setTodo] = useState(initTodo)
   return (
     <>
     <Navbar title={"Todo List"} searchBar={true}/>
