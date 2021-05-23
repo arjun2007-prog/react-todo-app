@@ -4,10 +4,16 @@ import Navbar from "./reactComponents/navbar"
 import {Todo} from "./reactComponents/todo"
 import {Footer} from "./reactComponents/footer"
 import {Addtodo} from "./reactComponents/addTodo"
+import About from "./reactComponents/about";
 
 import { React, useState, useEffect} from "react";
 
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function Display() {
   let initTodo;
@@ -58,10 +64,21 @@ function Display() {
 
   return (
     <>
-    <Navbar title={"Todo List"} searchBar={true}/>
-    <Addtodo add={add} />
-    <Todo todos={todoItems} onDelete={Delete}/>
-    <Footer />
+    <Router>
+     <Navbar title={"Todo List"} searchBar={true}/>
+     <Switch>
+          <Route exact path="/about">
+            <About />
+          </Route>
+          <Route exact path="/" >
+            <>
+             <Addtodo add={add} />
+             <Todo todos={todoItems} onDelete={Delete}/>
+            </>
+          </Route>
+        </Switch>
+     <Footer />
+    </Router>
     </>
   );
 }
