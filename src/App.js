@@ -64,8 +64,11 @@ function Display() {
 
   return (
     <>
+    {/* This is react router it helps us to move from one page to another*/}
     <Router>
      <Navbar title={"Todo List"} searchBar={true}/>
+     {/* Here we are using switch which is gonna display certain components only when ceratain paths the useris present on */}
+     {/* But parts outside the switch will always be displayed irespective of the path . This saves rerender time of these parts*/}
      <Switch>
           <Route exact path="/about">
             <About />
@@ -77,6 +80,7 @@ function Display() {
             </>
           </Route>
         </Switch>
+
      <Footer />
     </Router>
     </>
