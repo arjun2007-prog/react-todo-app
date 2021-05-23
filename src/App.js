@@ -20,7 +20,9 @@ function Display() {
   }
   console.log(initTodo);
 
-   function add(title, desc) {
+  //function to add todo elements in our list 
+  function add(title, desc) {
+
     // alert("this " + title + " " + desc)
     let serial = todoItems.length + 1
 
@@ -33,22 +35,27 @@ function Display() {
    //This is just setting the setTodo to new data which is a array now this array comprises of all the items present in the array 
    //todo items and also the object we just created
     setTodo([...todoItems, newTodo ])
-
-    localStorage.setItem("todos", JSON.stringify(todoItems))
    }
 
   function Delete(clickedTodo){
     setTodo(todoItems.filter((array)=>{
       return array !== clickedTodo
     }))
-    useEffect(()=>{
-      localStorage.setItem("todos", JSON.stringify(todoItems))
-    },[todoItems])
+    
     
   }
   //Whatever html we write must be returned on the function call so that the html can be used and display. 
   //Theyfore, it is written inside the return function
   const [todoItems, setTodo] = useState(initTodo)
+  
+  //this is the use effect hook takes 2 parameters a function which it can call and the second parameter
+  //must be in an array so in future multiple elements can be passed. Now the way it works is whenever  the variable values are 
+  //changed in the array thats when we are going to call this function we passed in the first parameter and it gets executed
+  useEffect(()=>{
+    localStorage.setItem("todos", JSON.stringify(todoItems))
+  },[todoItems])
+
+
   return (
     <>
     <Navbar title={"Todo List"} searchBar={true}/>

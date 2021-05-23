@@ -17,6 +17,8 @@ export const Addtodo = (props) => {
         else{
             props.add(title, desc)
         }
+        setTitle("")
+        setdesc("")
     }
 
     return (
